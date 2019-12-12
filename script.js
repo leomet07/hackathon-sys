@@ -2,7 +2,7 @@ window.onload = function () {
     var firebaseheadingref = firebase
         .database()
         .ref()
-        .child("quiz_scores");
+        .child("users");
     firebaseheadingref.on("value", function (datasnapshot) {
         //console.log(datasnapshot.val());
         calculate_avg(datasnapshot);
@@ -12,39 +12,7 @@ window.onload = function () {
 function calculate_avg(datasnapshot) {
     datasnapshot = datasnapshot.val();
     console.log(datasnapshot);
-    /*
-    all_entries = Object.values(datasnapshot);
-    console.log("all entries", all_entries);
-    let scores = [];
-    for (let i = 0; i < all_entries.length; i++) {
-        entry = all_entries[i];
-        let score = entry["score"];
-        //console.log(score);
-        scores.push(score);
-    }
-    //console.log(scores);
 
-    //calculating the avg
-    let total = 0;
-    let proper_scores = 0;
-    for (let i = 0; i < scores.length; i++) {
-        if (!isNaN(scores[i])) {
-            total += scores[i];
-            proper_scores++;
-        }
-    }
-    //console.log(total);
-    //console.log(proper_scores);
-
-    let avg = total / proper_scores;
-    console.log(avg);
-
-    //displaying the avg to the user
-    document.getElementById("avg").innerHTML =
-        '<span class="badge badge-secondary">The global avg was: ' +
-        precise_round(avg, 3) +
-        "</span>";
-    */
 }
 
 function write_db() {
@@ -70,3 +38,160 @@ function write_db() {
         //console.log(" No score to be had");
     }
 }
+
+
+function login() {
+    console.log("Login starting")
+}
+
+function toggle_forms(visible) {
+    console.log("called")
+
+
+    if (visible) {
+        loginForm.style.display = "block"
+        signupForm.style.display = "block"
+
+    } else {
+
+        console.log("visible right now ,making not visisble")
+        loginForm.style.display = "none"
+        signupForm.style.display = "none"
+
+    }
+}
+// login
+let loginForm = document.querySelector("#login-form");
+loginForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    console.log("login like twitter")
+
+    // get user info
+    const email = loginForm["login-email"].value;
+    const password = loginForm["login-password"].value;
+
+    // log the user in
+    auth.signInWithEmailAndPassword(email, password).then((cred) => {
+        //when successful close option for google sign in
+        //if signed in with email/passowrd then remove option to sign in with google.SO you would have to sign out.
+        // /google_sign_in_button.style.display = "none";
+
+        console.log("signed in with email and password");
+        global_user = firebase.auth().currentUser;
+
+        //getusername();
+        isverified = cred.user.emailVerified;
+        // close the signup modal & reset form
+
+        //const modal = document.querySelector("#modal-login");
+        //if not verified
+        /*
+        if (cred.user.emailVerified == false) {
+            //document.getElementById("verify").innerHTML =You cannot 'tweet' until account is verified.Check your email.<br>After you verify your email,you must logout and re sign in.This is all extra security and for the greater good.";
+            isverified = false;
+            console.log("verify pls");
+            firebase.auth().currentUser.sendEmailVerification();
+        }
+
+        */
+        toggle_forms(false)
+        loginForm.reset();
+    });
+});
+
+
+
+
+
+//signup
+
+// signup
+const signupForm = document.querySelector("#signup-form");
+signupForm.addEventListener("submit", function (e) {
+    //stop reloadings
+    e.preventDefault();
+
+
+
+    // get user info
+    const email = signupForm["signup-email"].value;
+    const password = signupForm["signup-password"].value;
+    const username = signupForm["signup-username"].value;
+
+    //console.log("jd");
+    console.log(username);
+
+    console.log(email, password);
+
+    // sign up the user
+    auth.createUserWithEmailAndPassword(email, password).then((cred) => {
+        console.log("going to sign up")
+        //ueser data = auth
+        console.log(firebase.auth().currentUser);
+        global_user = firebase.auth().currentUser;
+        current_user_name = username;
+        current_user_name = current_user_name.toLowerCase();
+        allow = true;
+        isverified = cred.user.emailVerified;
+
+
+        //adding the user to the database
+        console.log(username);
+        //adding a username to a seperate child for faster comparisin times
+
+        /*
+        firebase.database().ref().child("usernames").child(global_user.uid).set(username);
+        var firebaseheadingref = firebase.database().ref().child("users");
+        firebaseheadingref.on("value", function (datasnapshot) {
+            checksnapshot = datasnapshot.val();
+            console.log(checksnapshot);
+        });
+        */
+        //making a new user everytime
+
+        //check if null  later
+
+        console.log("add");
+        firebase.database().ref().child("users").child(global_user.uid).set({
+            user_name: current_user_name,
+        });
+
+
+
+
+        signupForm.reset();
+    });
+});
+
+
+
+// listen for auth status changes
+auth.onAuthStateChanged((user) => {
+    if (user) {
+        //adding user read
+
+
+        global_user = firebase.auth().currentUser;
+
+        //if signed in then remove option to sign in with google again.SO you would have to sign out.
+
+        console.log("user logged in: ");
+        document.getElementById("login-status").innerHTML = "Logged in"
+        allow = true;
+        console.log(global_user);
+        isverified = user.emailVerified;
+
+        toggle_forms(false)
+
+
+
+        //make login and signupnforms not seen
+    } else {
+        //making verif not seen
+
+
+        console.log("user logged out");
+        toggle_forms(true)
+    }
+});

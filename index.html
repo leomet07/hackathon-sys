@@ -42,7 +42,36 @@
         <h2>Take a quiz on your knowledge of tree cutting below</h2>
 
 
-        <h3 id="avg">The global avg was: </h3>
+        <h3 id="login-status"></h3>
+
+        <form id="login-form">
+            <div class="">
+                <input class="input-field" type="email" id="login-email" required />
+                <label for="login-email">Email address</label>
+            </div>
+            <div class="">
+                <input class="input-field" type="password" id="login-password" required />
+                <label for="login-password">Your password</label>
+            </div>
+            <button class="">Submit</button>
+        </form>
+
+        <form id="signup-form" autocomplete="off">
+            <div class="">
+                <input class="input-field" type="email" id="signup-email" required />
+                <label for="signup-email">Email address</label>
+            </div>
+            <div class="">
+                <input class="input-field" type="password" id="signup-password" required />
+                <label for="signup-password">Choose password</label>
+            </div>
+            <div class="">
+                <input type="text" class="input-field" id="signup-username" required />
+                <label for="signup-username">Username</label>
+                <p id="status"></p>
+            </div>
+            <button class="btn yellow darken-2 z-depth-0">Submit</button>
+        </form>
         <!--
             <div class="col-md-4 ml-10">
                 <div class="content-section">
@@ -62,14 +91,18 @@
     </main>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
-
+    <!--
     <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
 
 
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
+    
     <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-database.js"></script>
+    -->
+
+    <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
+
+
 
 
 
@@ -86,6 +119,9 @@
         };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
+
+        const auth = firebase.auth();
+        const db = firebase.firestore();
     </script>
     <!--<script src="quiz.js"></script>-->
     <script src="script.js"></script>
