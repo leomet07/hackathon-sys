@@ -51,12 +51,14 @@ function toggle_forms(visible) {
     if (visible) {
         loginForm.style.display = "block"
         signupForm.style.display = "block"
+        logout.style.display = "none"
 
     } else {
 
         console.log("visible right now ,making not visisble")
         loginForm.style.display = "none"
         signupForm.style.display = "none"
+        logout.style.display = "block"
 
     }
 }
@@ -164,7 +166,19 @@ signupForm.addEventListener("submit", function (e) {
     });
 });
 
+// logout
+const logout = document.querySelector("#logout");
+logout.addEventListener("click", (e) => {
+    e.preventDefault();
+    auth.signOut().then(() => {
+        //making verif not seen
+        document.getElementById("login-status").innerHTML = "Not lgged in";
 
+        //temoving user add
+        toggle_forms(true)
+        //console.log("user signed out");
+    });
+});
 
 // listen for auth status changes
 auth.onAuthStateChanged((user) => {

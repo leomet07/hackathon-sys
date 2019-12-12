@@ -43,7 +43,7 @@
 
 
         <h3 id="login-status"></h3>
-
+        <button id="logout" class="logged-in">Logout</button>
         <form id="login-form">
             <div class="">
                 <input class="input-field" type="email" id="login-email" required />
@@ -58,15 +58,15 @@
 
         <form id="signup-form" autocomplete="off">
             <div class="">
-                <input class="input-field" type="email" id="signup-email" required />
+                <input class="input-field" type="email" id="signup-email" autocomplete="new-email" required />
                 <label for="signup-email">Email address</label>
             </div>
             <div class="">
-                <input class="input-field" type="password" id="signup-password" required />
+                <input class="input-field" type="password" id="signup-password" autocomplete="new-password" required />
                 <label for="signup-password">Choose password</label>
             </div>
             <div class="">
-                <input type="text" class="input-field" id="signup-username" required />
+                <input type="text" class="input-field" id="signup-username" autocomplete="off" required />
                 <label for="signup-username">Username</label>
                 <p id="status"></p>
             </div>
