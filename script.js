@@ -45,7 +45,7 @@ function login() {
 }
 
 function toggle_forms(visible) {
-    console.log("called")
+
 
 
     if (visible) {
@@ -55,15 +55,21 @@ function toggle_forms(visible) {
 
     } else {
 
-        console.log("visible right now ,making not visisble")
+
         loginForm.style.display = "none"
         signupForm.style.display = "none"
+        speed_alert.style.display = "none"
+        wrong_pwd.style.display = "none"
+        no_user.style.display = "none"
         logout.style.display = "block"
 
     }
 }
 // login
 let loginForm = document.querySelector("#login-form");
+let speed_alert = document.querySelector("#speedwarning");
+let wrong_pwd = document.querySelector("#wrong_pwd");
+let no_user = document.querySelector("#no_user");
 loginForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -72,6 +78,7 @@ loginForm.addEventListener("submit", (e) => {
     // get user info
     const email = loginForm["login-email"].value;
     const password = loginForm["login-password"].value;
+    console.log(email, "|", password)
 
     // log the user in
     auth.signInWithEmailAndPassword(email, password).then((cred) => {
@@ -99,6 +106,24 @@ loginForm.addEventListener("submit", (e) => {
         */
         toggle_forms(false)
         loginForm.reset();
+
+
+    }).catch((err) => {
+        console.log("Could not login")
+        console.log(err)
+        console.log("|" + err.message + "|")
+
+        if (err.message == "The password is invalid or the user does not have a password.") {
+            console.log("incorrrect paswrod")
+            wrong_pwd.style.display = "block"
+        } else if (err.message == "Too many unsuccessful login attempts. Please try again later.") {
+            console.log("slowww down buddy")
+            speed_alert.style.display = "block"
+        } else if (err.message == "There is no user record corresponding to this identifier. The user may have been deleted.") {
+            console.log("slowww down buddy")
+            no_user.style.display = "block"
+
+        }
     });
 });
 
@@ -157,7 +182,9 @@ signupForm.addEventListener("submit", function (e) {
         console.log("add");
         firebase.database().ref().child("users").child(global_user.uid).set({
             user_name: current_user_name,
-        });
+        }).catch((err) => {
+            console.log("Could not sign up")
+        })
 
 
 
