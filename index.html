@@ -64,11 +64,12 @@
 
         <h1 class="text-center">Get help</h1>
 
-        <h2>Login</h2>
+
         <h3 id="login-status"></h3>
-        <button id="logout" class="logged-in">Logout</button>
-        <button id="help_request" class="logged-in">HELP!!</button>
+        <button id="logout" class="logged-in btn yellow darken-2 z-depth-0">Logout</button>
+        <button id="help_request" class="logged-in btn btn-danger darken-2 z-depth-0">HELP!!</button>
         <form id="login-form">
+            <h2>Login</h2>
             <div class="">
                 <input class="input-field" type="email" id="login-email" required />
                 <label for="login-email">Email address</label>
@@ -77,32 +78,33 @@
                 <input class="input-field" type="password" id="login-password" required />
                 <label for="login-password">Your password</label>
             </div>
-            <button class="">Submit</button>
+            <button class="btn btn-primary darken-2 z-depth-0">Submit</button>
         </form>
-        <h2>Sign up</h2>
+
         <form id="signup-form" autocomplete="off">
+            <h2>Sign up</h2>
             <div class="">
-                <input class="input-field" type="email" id="signup-email" autocomplete="new-email" required />
-                <label for="signup-email">Email address</label>
+                <input class="input-field" placeholder="Email Address" type="email" id="signup-email" autocomplete="new-email" required />
+                
             </div>
             <div class="">
-                <input class="input-field" type="password" id="signup-password" autocomplete="new-password" required />
-                <label for="signup-password">Choose password</label>
+                <input class="input-field" placeholder="Password" type="password" id="signup-password" autocomplete="new-password" required />
+               
             </div>
             <div class="">
-                <input type="text" class="input-field" id="signup-username" autocomplete="off" required />
-                <label for="signup-username">Username</label>
+                <input type="text" class="input-field" placeholder="Username" id="signup-username" autocomplete="off" required />
+             
             </div>
             <div class="">
-                <input type="text" class="input-field" id="signup-emerphone" autocomplete="off" required />
-                <label for="signup-emerphone">Emergency Phone #</label>
+                <input type="text" class="input-field" placeholder="Phone Number" id="signup-emerphone" autocomplete="off" required />
+
             </div>
             <div class="">
-                <input type="text" class="input-field" id="signup-medical" autocomplete="off" />
-                <label for="signup-medical">Medical info</label>
+                <input type="text" class="input-field" placeholder="Important Medical Information" id="signup-medical" autocomplete="off" />
+              
             </div>
             <p id="status"></p>
-            <button class="btn yellow darken-2 z-depth-0">Submit</button>
+            <button class="btn btn-primary darken-2 z-depth-0">Submit</button>
         </form>
 
 
