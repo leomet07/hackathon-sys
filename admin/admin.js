@@ -75,7 +75,7 @@ let speed_alert = document.querySelector("#speedwarning");
 let wrong_pwd = document.querySelector("#wrong_pwd");
 let no_user = document.querySelector("#no_user");
 let emergencies_list = document.querySelector("#emergencys");
-
+let short_pwd = document.querySelector("#short_pass");
 loginForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -153,6 +153,7 @@ signupForm.addEventListener("submit", function (e) {
     const username = signupForm["signup-username"].value;
     const emerphone = signupForm["signup-emerphone"].value;
     const medical = signupForm["signup-medical"].value;
+    const realname = signupForm["signup-realname"].value;
 
     //console.log("jd");
     console.log(username);
@@ -179,7 +180,8 @@ signupForm.addEventListener("submit", function (e) {
         firebase.database().ref().child("users").child(global_user.uid).set({
             user_name: current_user_name,
             emerphone: emerphone,
-            medical: medical
+            medical: medical,
+            realname: realname
 
         }).catch((err) => {
             console.log("Could not sign up")
@@ -189,7 +191,17 @@ signupForm.addEventListener("submit", function (e) {
 
 
         signupForm.reset();
-    });
+    }).catch((err) => {
+        console.log("Could not sign up")
+
+        console.log(err)
+        console.log("|" + err.message + "|")
+
+        if (err.message == "Password should be at least 6 characters") {
+            console.log("Password is too short")
+            short_pwd.style.display = "block"
+        }
+    })
 });
 let current_user_name = ""
 // logout
@@ -198,7 +210,7 @@ logout.addEventListener("click", (e) => {
     e.preventDefault();
     auth.signOut().then(() => {
         //making verif not seen
-        document.getElementById("login-status").innerHTML = "Not lgged in";
+
 
         //temoving user add
         toggle_forms(true)
@@ -239,6 +251,8 @@ auth.onAuthStateChanged((user) => {
             emerphone = data[user.uid]["emerphone"]
             medical = data[user.uid]["medical"]
             current_user_name = data[user.uid]["user_name"]
+            let realname = data[user.uid]["realname"]
+            console.log("SUPPOSED REAL NAME" + realname)
             console.log(emerphone)
             console.log(current_user_name)
             document.getElementById("username").innerHTML = "Current user: " + current_user_name
@@ -268,14 +282,18 @@ auth.onAuthStateChanged((user) => {
                 if (current_emergency != "holder") {
                     console.log(current_emergency)
                     let current_emergency_medical = current_emergency['medical']
+                    let current_emergency_date = current_emergency['time']
                     let current_emergency_username = current_emergency['user_name']
                     let current_emergency_uid = emergencies[i][0]
+                    let current_emergency_human_name = current_emergency['realname']
+
+
 
                     console.log(current_emergency_medical, current_emergency_uid, current_emergency_username)
 
                     //display emergencies
 
-                    document.getElementById('emergencys').innerHTML += "<li>" + current_emergency_medical + " " + String(current_emergency_uid) + " " + String(current_emergency_username) + "</li>"
+                    document.getElementById('emergencys').innerHTML += "<div class = 'emergency'>" + "<h4> Medical History: " + current_emergency_medical + "</h4> " + "<h4> ID = " + String(current_emergency_uid) + "</h4> " + "<h4>" + String(current_emergency_username) + "</h4>" + "<h4>" + String(current_emergency_human_name) + "</h4>" + "<h4>" + String(current_emergency_date) + "</h4>"+ "</div>"
 
 
                 }

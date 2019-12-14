@@ -92,7 +92,8 @@ a.article-title:hover {
 #warning,
 #speedwarning,
 #no_user,
-#wrong_pwd {
+#wrong_pwd,
+#short_pass {
     display: none;
 }
 
@@ -103,4 +104,11 @@ a.article-title:hover {
 
 form {
     display: none;
+}
+
+.emergency {
+    border: 2px solid black;
+    margin-bottom: 3px;
+    padding: 3px;
+
 }

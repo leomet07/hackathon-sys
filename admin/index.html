@@ -3,6 +3,7 @@
 
 <head>
     <!--font awesome-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://kit.fontawesome.com/a1ee4d6d1b.js" crossorigin="anonymous"></script>
     <!-- THE bootstrap-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -17,26 +18,35 @@
     <header class="site-header">
         <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
             <div class="container">
-                <a class="navbar-brand mr-4" href="#">Life saver</a>
+                <a class="navbar-brand mr-4" href="#"><i class="fas fa-heartbeat"></i> Life saver</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
                     aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarToggle">
                     <div class="navbar-nav mr-auto">
-                        <a class="nav-item nav-link" href="#"><i class="fas fa-home"></i>Home</a>
-                        <a class="nav-item nav-link" href="#">About</a>
+                        <a class="nav-item nav-link" href="#"><i class="fas fa-home"></i> Home</a>
+                        <a class="nav-item nav-link" href="#"><i class="fas fa-info-circle"></i> About</a>
+                        <a class="nav-item nav-link" href="/admin"><i class="fas fa-tools"></i> Admin Console</a>
                     </div>
                     <!-- Navbar Right Side -->
                     <div class="navbar-nav">
-                        <a class="nav-item nav-link" href="#">Login</a>
-                        <a class="nav-item nav-link" href="#">Register</a>
+                        <a class="nav-item nav-link" href="#"><i class="fas fa-sign-in-alt"></i> Login</a>
+                        <a class="nav-item nav-link" href="#"><i class="fas fa-user-plus"></i> Register</a>
                     </div>
                 </div>
             </div>
         </nav>
     </header>
     <main role="main" class="container">
+        <div id="short_pass">
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Short password! </strong> Password should be at least 6 characters
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
         <div id="speedwarning">
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
                 <strong>Holy guacamole!</strong> You should slow down
@@ -63,20 +73,13 @@
             </div>
         </div>
         <h3 id="username"></h3>
-        <h1 class="text-center">Emergencys list</h1>
+        <h1 class="text-center">Emergencies list</h1>
 
-        <ul id="emergencys"></ul>
+        <div id="emergencys"></div>
 
-
-
-        <button id="logout" class="logged-in">Logout</button>
-
-
-
-
-        <button id="logout" class="logged-in">Logout</button>
-
-
+        <div>
+            <button id="logout" class="logged-in">Logout</button>
+        </div>
 
         <form id="login-form">
             <h2>Login</h2>
@@ -113,11 +116,13 @@
                 <input type="text" class="input-field" id="signup-medical" autocomplete="off" />
                 <label for="signup-medical">Medical info</label>
             </div>
+            <div class="">
+                <input type="text" class="input-field" id="signup-realname" autocomplete="off" />
+                <label for="signup-realname">Realname</label>
+            </div>
             <p id="status"></p>
             <button class="btn yellow darken-2 z-depth-0">Submit</button>
         </form>
-
-
     </main>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
