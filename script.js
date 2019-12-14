@@ -52,6 +52,7 @@ function toggle_forms(visible) {
         loginForm.style.display = "block"
         signupForm.style.display = "block"
         logout.style.display = "none"
+        help_request.style.display = "none"
 
     } else {
 
@@ -62,6 +63,7 @@ function toggle_forms(visible) {
         wrong_pwd.style.display = "none"
         no_user.style.display = "none"
         logout.style.display = "block"
+        help_request.style.display = "block"
 
     }
 }
@@ -70,6 +72,7 @@ let loginForm = document.querySelector("#login-form");
 let speed_alert = document.querySelector("#speedwarning");
 let wrong_pwd = document.querySelector("#wrong_pwd");
 let no_user = document.querySelector("#no_user");
+
 loginForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -145,10 +148,12 @@ signupForm.addEventListener("submit", function (e) {
     const email = signupForm["signup-email"].value;
     const password = signupForm["signup-password"].value;
     const username = signupForm["signup-username"].value;
+    const emerphone = signupForm["signup-emerphone"].value;
+    const medical = signupForm["signup-medical"].value;
 
     //console.log("jd");
     console.log(username);
-
+    console.log(emerphone, medical)
     console.log(email, password);
 
     // sign up the user
@@ -165,23 +170,14 @@ signupForm.addEventListener("submit", function (e) {
 
         //adding the user to the database
         console.log(username);
-        //adding a username to a seperate child for faster comparisin times
 
-        /*
-        firebase.database().ref().child("usernames").child(global_user.uid).set(username);
-        var firebaseheadingref = firebase.database().ref().child("users");
-        firebaseheadingref.on("value", function (datasnapshot) {
-            checksnapshot = datasnapshot.val();
-            console.log(checksnapshot);
-        });
-        */
-        //making a new user everytime
-
-        //check if null  later
 
         console.log("add");
         firebase.database().ref().child("users").child(global_user.uid).set({
             user_name: current_user_name,
+            emerphone: emerphone,
+            medical: medical
+
         }).catch((err) => {
             console.log("Could not sign up")
         })
@@ -192,7 +188,7 @@ signupForm.addEventListener("submit", function (e) {
         signupForm.reset();
     });
 });
-
+let current_user_name = ""
 // logout
 const logout = document.querySelector("#logout");
 logout.addEventListener("click", (e) => {
@@ -206,6 +202,27 @@ logout.addEventListener("click", (e) => {
         //console.log("user signed out");
     });
 });
+
+// logout
+const help_request = document.querySelector("#help_request");
+help_request.addEventListener("click", (e) => {
+
+    //ask for help
+    console.log("emerphone", emerphone)
+
+    console.log("Help requested")
+    firebase.database().ref().child("help").child(global_user.uid).set({
+        status: true,
+        user_name: current_user_name,
+        emerphone: emerphone,
+        medical: medical
+
+    }).catch((err) => {
+        console.log("Could not sign up")
+    })
+});
+
+
 
 // listen for auth status changes
 auth.onAuthStateChanged((user) => {
@@ -224,6 +241,22 @@ auth.onAuthStateChanged((user) => {
         isverified = user.emailVerified;
 
         toggle_forms(false)
+        //retrieve form data
+
+        let firebaseheadingref = firebase
+            .database()
+            .ref()
+            .child("users");
+        firebaseheadingref.on("value", function (datasnapshot) {
+            //console.log(datasnapshot.val());
+            let data = datasnapshot.val()
+            //get emerphone
+
+            emerphone = data[user.uid]["emerphone"]
+            medical = data[user.uid]["medical"]
+            current_user_name = data[user.uid]["user_name"]
+            console.log(emerphone)
+        });
 
 
 

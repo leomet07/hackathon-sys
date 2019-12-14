@@ -96,6 +96,11 @@ a.article-title:hover {
     display: none;
 }
 
+#help_request {
+    margin-top: 10px;
+    ;
+}
+
 form {
     display: none;
 }
