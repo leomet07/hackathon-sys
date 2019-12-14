@@ -280,6 +280,7 @@ auth.onAuthStateChanged((user) => {
             emergencies = Object.entries(data)
             console.log(emergencies)
             document.getElementById('emergencys').innerHTML = ""
+            let amnt_emerg = 0
             for (let i = 0; i < emergencies.length; i++) {
                 //print i=each emergencies
                 let current_emergency = emergencies[i][1]
@@ -298,11 +299,16 @@ auth.onAuthStateChanged((user) => {
                     //display emergencies
 
                     document.getElementById('emergencys').innerHTML += "<div class = 'emergency'>" + "<button onclick = 'resolve(\"" + String(current_emergency_uid) + "\")'>Stop</button>" + "<h4> Medical History: " + current_emergency_medical + "</h4> " + "<h4> ID = " + String(current_emergency_uid) + "</h4> " + "<h4>" + String(current_emergency_username) + "</h4>" + "<h4>" + String(current_emergency_human_name) + "</h4>" + "<h4>" + String(current_emergency_date) + "</h4>" + "</div>"
-
+                    amnt_emerg++;
 
                 }
 
 
+
+            }
+
+            if (amnt_emerg == 0) {
+                document.getElementById('emergencys').innerHTML = "<h3>No emergencies right now</h3>"
 
             }
         });
