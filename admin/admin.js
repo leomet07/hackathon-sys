@@ -241,7 +241,7 @@ auth.onAuthStateChanged((user) => {
             current_user_name = data[user.uid]["user_name"]
             console.log(emerphone)
             console.log(current_user_name)
-            document.getElementById("username").innerHTML = current_user_name
+            document.getElementById("username").innerHTML = "Current user " + current_user_name
         });
         console.log("ON ADMIN pAGE LOGGED IN AND COMFIRMED")
 
