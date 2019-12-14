@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!--font awesome-->
     <script src="https://kit.fontawesome.com/a1ee4d6d1b.js" crossorigin="anonymous"></script>
     <!-- THE bootstrap-->
@@ -27,6 +27,7 @@
                     <div class="navbar-nav mr-auto">
                         <a class="nav-item nav-link" href="#"><i class="fas fa-home"></i> Home</a>
                         <a class="nav-item nav-link" href="#"><i class="fas fa-info-circle"></i> About</a>
+                        <a class="nav-item nav-link" href="/admin"><i class="fas fa-tools"></i> Admin Console</a>
                     </div>
                     <!-- Navbar Right Side -->
                     <div class="navbar-nav">
@@ -38,9 +39,18 @@
         </nav>
     </header>
     <main role="main" class="container">
+        <div id="short_pass">
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Short password! </strong> Password should be at least 6 characters
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
         <div id="speedwarning">
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                <strong>Slow down</strong> You should slow down and try again.
+                <strong>Slow down</strong> You should slow down and try
+                again.
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -56,19 +66,32 @@
         </div>
         <div id="no_user">
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                <strong>This user doesn't exist!</strong>Maybe you meant to create an account?
+                <strong>This user doesn't exist!</strong>Maybe you meant to
+                create an account?
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
         </div>
 
+
+
         <h1 class="text-center">Get help</h1>
 
-
         <h3 id="login-status"></h3>
-        <button id="logout" class="logged-in btn yellow darken-2 z-depth-0">Logout</button>
-        <button id="help_request" class="logged-in btn btn-danger darken-2 z-depth-0">HELP!!</button>
+        <button id="logout" class="logged-in btn yellow darken-2 z-depth-0">
+            Logout
+        </button>
+        <button id="help_request" class="logged-in btn btn-danger darken-2 z-depth-0" style="display: block;
+                width: 100%;
+                border: none;
+                
+                padding: 14px 28px;
+                font-size: 16px;
+                cursor: pointer;
+                text-align: center;">
+            HELP!!
+        </button>
         <form id="login-form">
             <h2>Login</h2>
             <div class="">
@@ -79,7 +102,9 @@
                 <input class="input-field" type="password" id="login-password" required />
                 <label for="login-password">Your password</label>
             </div>
-            <button class="btn btn-primary darken-2 z-depth-0">Submit</button>
+            <button class="btn btn-primary darken-2 z-depth-0">
+                Submit
+            </button>
         </form>
 
         <form id="signup-form" autocomplete="off">
@@ -87,33 +112,31 @@
             <div class="">
                 <input class="input-field" placeholder="Email Address" type="email" id="signup-email"
                     autocomplete="new-email" required />
-
             </div>
             <div class="">
                 <input class="input-field" placeholder="Password" type="password" id="signup-password"
                     autocomplete="new-password" required />
-
             </div>
             <div class="">
                 <input type="text" class="input-field" placeholder="Username" id="signup-username" autocomplete="off"
                     required />
-
             </div>
             <div class="">
                 <input type="text" class="input-field" placeholder="Phone Number" id="signup-emerphone"
                     autocomplete="off" required />
-
             </div>
             <div class="">
                 <input type="text" class="input-field" placeholder="Important Medical Information" id="signup-medical"
                     autocomplete="off" />
-
+            </div>
+            <div class="">
+                <input type="text" class="input-field" placeholder="realname" id="signup-realname" autocomplete="off" />
             </div>
             <p id="status"></p>
-            <button class="btn btn-primary darken-2 z-depth-0">Submit</button>
+            <button class="btn btn-primary darken-2 z-depth-0">
+                Submit
+            </button>
         </form>
-
-
     </main>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->

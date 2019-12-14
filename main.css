@@ -92,7 +92,8 @@ a.article-title:hover {
 #warning,
 #speedwarning,
 #no_user,
-#wrong_pwd {
+#wrong_pwd,
+#short_pass {
     display: none;
 }
 

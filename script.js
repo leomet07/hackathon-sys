@@ -72,6 +72,7 @@ let loginForm = document.querySelector("#login-form");
 let speed_alert = document.querySelector("#speedwarning");
 let wrong_pwd = document.querySelector("#wrong_pwd");
 let no_user = document.querySelector("#no_user");
+let short_pwd = document.querySelector("#short_pass");
 
 loginForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -150,6 +151,7 @@ signupForm.addEventListener("submit", function (e) {
     const username = signupForm["signup-username"].value;
     const emerphone = signupForm["signup-emerphone"].value;
     const medical = signupForm["signup-medical"].value;
+    const realname = signupForm["signup-realname"].value;
 
     //console.log("jd");
     console.log(username);
@@ -176,16 +178,27 @@ signupForm.addEventListener("submit", function (e) {
         firebase.database().ref().child("users").child(global_user.uid).set({
             user_name: current_user_name,
             emerphone: emerphone,
-            medical: medical
+            medical: medical,
+            realname: realname
 
         }).catch((err) => {
-            console.log("Could not sign up")
+            console.log("Could not add to db")
         })
 
 
 
 
         signupForm.reset();
+    }).catch((err) => {
+        console.log("Could not sign up")
+
+        console.log(err)
+        console.log("|" + err.message + "|")
+
+        if (err.message == "Password should be at least 6 characters") {
+            console.log("Password is too short")
+            short_pwd.style.display = "block"
+        }
     });
 });
 let current_user_name = ""
@@ -204,18 +217,22 @@ logout.addEventListener("click", (e) => {
 });
 
 // logout
+let realname = ""
 const help_request = document.querySelector("#help_request");
 help_request.addEventListener("click", (e) => {
 
     //ask for help
     console.log("emerphone", emerphone)
-
+    let time = String(new Date())
+    console.log(time)
     console.log("Help requested")
     firebase.database().ref().child("help").child(global_user.uid).set({
         status: true,
         user_name: current_user_name,
         emerphone: emerphone,
-        medical: medical
+        medical: medical,
+        realname: realname,
+        time: time
 
     }).catch((err) => {
         console.log("Could not sign up")
@@ -255,7 +272,8 @@ auth.onAuthStateChanged((user) => {
             emerphone = data[user.uid]["emerphone"]
             medical = data[user.uid]["medical"]
             current_user_name = data[user.uid]["user_name"]
-            console.log(emerphone)
+            realname = data[user.uid]["realname"]
+            console.log("SUPPOSED REAL NAME" + realname)
         });
 
 
@@ -264,7 +282,7 @@ auth.onAuthStateChanged((user) => {
     } else {
         //making verif not seen
 
-
+        document.getElementById("login-status").innerHTML = "Logged out"
         console.log("user logged out");
         toggle_forms(true)
     }
