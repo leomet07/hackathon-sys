@@ -120,7 +120,7 @@ loginForm.addEventListener("submit", (e) => {
         console.log("|" + err.message + "|")
 
         if (err.message == "The password is invalid or the user does not have a password.") {
-            console.log("incorrrect paswrod")
+            console.log("incorrect password")
             wrong_pwd.style.display = "block"
         } else if (err.message == "Too many unsuccessful login attempts. Please try again later.") {
             console.log("slowww down buddy")
